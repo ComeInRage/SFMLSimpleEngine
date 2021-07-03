@@ -11,7 +11,7 @@ class LGameRender : public sf::RenderWindow
 private:
 
 	// This map is needed for render child widgets and their unique keys
-	std::map<sf::String, LAbstractWidget*>* m_widgets;
+	std::vector<LAbstractWidget*>* m_widgets;
 
 	// Loop in which all event functions are called
 	void event_loop();
@@ -33,10 +33,7 @@ public:
 	///////////////////////////////////////////////
 
 	// Adds any child LWidget with unique key to map of widgets
-	void add(const sf::String& key, LAbstractWidget* widget);
-
-	// Removes child widget with "key" and releases occupied memory
-	void remove(const sf::String& key);
+	void add(LAbstractWidget* widget);
 
 	// This function have to be called in infinite loop.
 	// It starts event loop, clears windows and updates it after all

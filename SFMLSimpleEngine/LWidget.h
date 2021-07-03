@@ -8,19 +8,29 @@ class LWidget : public LAbstractWidget
 
 protected:
 
-	// Pointer to shape which describes the object. Will be drawn in target window
-	sf::RectangleShape* m_shape;
+	// Shape which describes the object. Will be drawn in target window
+	sf::RectangleShape m_shape;
 
 public:
 
-	// Default constructor. Create empty shape and initialize the pointer
+	// Default constructor. Creates empty shape
 	LWidget();
 
-	// Create new shape with W, H size and initialize the pointer
-	LWidget(float W, float H);
+	// Creates new shape with W, H size.
+	// Initialize parent pointer. Use if parent of your widget is LAbstractWidget
+	LWidget(float W, float H, LAbstractWidget* parent);
 
-	// Initialize pointer to shape by another pointer to shape which already exists
-	LWidget(sf::RectangleShape* shape);
+	// Creates new shape with W, H size.
+	// Initialize parent pointer. Use if parent of your widget is LGameRender
+	LWidget(float W, float H, LGameRender* render = nullptr);
+
+	// Initialize shape by const reference to another shape which already exists.
+	// Initialize parent pointer. Use if parent of your widget is LAbstractWidget
+	LWidget(const sf::RectangleShape& shape, LAbstractWidget* parent);
+
+	// Initialize shape by const reference to another shape which already exists.
+	// Initialize parent pointer. Use if parent of your widget is LGameRender
+	LWidget(const sf::RectangleShape& shape, LGameRender* render = nullptr);
 
 	// Destructor which release all occipied memory
 	~LWidget();

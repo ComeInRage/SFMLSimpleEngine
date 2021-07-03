@@ -2,27 +2,29 @@
 
 #include <SFMLSimpleEngine/LAbstractWidget.h>
 
-LAbstractWidget::LAbstractWidget() 
-	: m_parent(0), m_childs(new std::map<sf::String, LAbstractWidget*>), m_window(0), m_key("") {}
+LAbstractWidget::LAbstractWidget()
+	: m_parent(nullptr), m_childs(new std::vector<LAbstractWidget*>), m_window(nullptr) {}
 
-LAbstractWidget::LAbstractWidget(const sf::String& key, LGameRender* render) 
-	: m_parent(0), m_childs(new std::map<sf::String, LAbstractWidget*>), m_window(render), m_key(key) {
+LAbstractWidget::LAbstractWidget(LGameRender* render) 
+	: m_parent(nullptr), m_childs(new std::vector<LAbstractWidget*>), m_window(render) {
 
-	render->add(key, this);
+	if (render)
+		render->add(this);
 
 }
 
-LAbstractWidget::LAbstractWidget(const sf::String& key, LAbstractWidget* parent)
-	: m_parent(parent), m_childs(new std::map<sf::String, LAbstractWidget*>), m_window(0), m_key(key) {
+LAbstractWidget::LAbstractWidget(LAbstractWidget* parent)
+	: m_parent(parent), m_childs(new std::vector<LAbstractWidget*>), m_window(nullptr) {
 
-	parent->addChild(key, this);
+	if (parent)
+		parent->addChild(this);
 
 }
 
 LAbstractWidget::~LAbstractWidget() {
 
-	for (auto pair : *m_childs) {
-		delete pair.second;
+	for (auto child : *m_childs) {
+		delete child;
 	}
 
 	delete m_childs;
@@ -35,28 +37,17 @@ LAbstractWidget::~LAbstractWidget() {
 ///////////////////////////////////////////////
 
 
-void LAbstractWidget::addChild(const sf::String& key, LAbstractWidget* child) {
-
-	if (m_childs->find(key) != m_childs->end()) {
-		std::cout << "Child with key '" << static_cast<std::string>(key) << "' is already exists.\n";
-		return;
-	}
+void LAbstractWidget::addChild(LAbstractWidget* child) {
 
 	child->setWindow(m_window);
 	child->setParent(this);
-	(*m_childs)[key] = child;
+	m_childs->push_back(child);
 
 }
 
 LAbstractWidget::CHILDS_CREF LAbstractWidget::getChilds() const {
 
 	return *m_childs;
-
-}
-
-const sf::String& LAbstractWidget::getKey() const {
-
-	return m_key;
 
 }
 
@@ -74,15 +65,10 @@ const sf::RenderWindow& LAbstractWidget::getWindow() const {
 
 }
 
-void LAbstractWidget::removeChild(const sf::String& key) {
+void LAbstractWidget::removeChild(int key) {
 
-	if (m_childs->find(key) == m_childs->end()) {
-		std::cout << static_cast<std::string> (key) << " is not exists!\n";
-		return;
-	}
-
-	delete (*m_childs)[key];
-	m_childs->erase(key);
+	delete m_childs->at(key);
+	m_childs->erase(m_childs->begin() + key);
 
 }
 
@@ -94,13 +80,14 @@ void LAbstractWidget::setFocus(bool state) {
 
 void LAbstractWidget::setParent(LAbstractWidget* parent) {
 
-	m_parent = parent;
+	if (!m_parent)
+		m_parent = parent;
 
 }
 
 void LAbstractWidget::setWindow(sf::RenderWindow* window) {
 
-	if (m_window == 0)
+	if (!m_window)
 		m_window = window;
 
 }
@@ -127,8 +114,8 @@ bool LAbstractWidget::eventHandler(sf::Event& e) {
 
 	}
 
-	for (auto pair : *m_childs) {
-		bool child_success = pair.second->eventHandler(e);
+	for (auto child : *m_childs) {
+		bool child_success = child->eventHandler(e);
 		if (!success && child_success)
 			success = child_success;
 	}

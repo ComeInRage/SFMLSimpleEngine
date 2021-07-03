@@ -1,7 +1,16 @@
 #include <SFMLSimpleEngine/LCustomWidget.h>
 
-LCustomWidget::LCustomWidget() 
-	: m_vertices(new sf::VertexArray()) {}
+LCustomWidget::LCustomWidget(LAbstractWidget* parent)
+	: LAbstractWidget(parent), m_vertices(new sf::VertexArray()) {}
+
+LCustomWidget::LCustomWidget(LGameRender* render)
+	: LAbstractWidget(render), m_vertices(new sf::VertexArray()) {}
+
+LCustomWidget::LCustomWidget(sf::VertexArray* vertices, LAbstractWidget* parent)
+	: LAbstractWidget(parent), m_vertices(vertices) {}
+
+LCustomWidget::LCustomWidget(sf::VertexArray* vertices, LGameRender* render)
+	: LAbstractWidget(render), m_vertices(vertices) {}
 
 LCustomWidget::~LCustomWidget() {
 	delete m_vertices;
@@ -37,8 +46,8 @@ void LCustomWidget::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
 	const auto childs = this->getChilds();
 
-	for (auto pair : childs) {
-		target.draw(*pair.second);
+	for (auto child : childs) {
+		target.draw(*child);
 	}
 
 	this->onPaint(target, states);
@@ -86,8 +95,6 @@ void LCustomWidget::setPrimitive(const sf::PrimitiveType& ptype) {
 ///////////////////////////////////////////////
 
 
-// Some events do nothing cause child classes should make logic by their own
-// We can use abstract class but it is not correct because child classes of abstract class
-// have to define any event function
+// Some events do nothing cause child classes should ba able make logic by their own
 
 void LCustomWidget::onPaint(sf::RenderTarget& target, sf::RenderStates states) const {}

@@ -10,11 +10,8 @@ class LAbstractWidget : public sf::Drawable
 
 private:
 
-	// Map with unique keys and pointers to child widgets
-	std::map<sf::String, LAbstractWidget*>* m_childs;
-
-	// All widgets have unique keys. They are needed to store pointers to widgets
-	sf::String m_key;
+	// Vector with pointers to child widgets
+	std::vector<LAbstractWidget*>* m_childs;
 
 	// Pointer to parent widget
 	LAbstractWidget* m_parent;
@@ -28,20 +25,18 @@ private:
 
 public:
 
-	// Default constructor. Initialize childs map by empty map and parent pointer by zero
+	// Default constructor. Initialize all pointers by nullptr
 	LAbstractWidget();
 
 	// Constructor that you can use if your widget has no parent widget.
-	// You have to specify unique key of your widget in first argument.
-	// Initialize pointer to parent widget by 0, adds widget to widgets map in render
-	LAbstractWidget(const sf::String& key, LGameRender* render);
+	// Initialize pointer to parent widget by nullptr, adds widget to widgets vector in LGameRender
+	LAbstractWidget(LGameRender* render);
 
 	// Constructor that you can use if your widget is child. 
-	// You have to specify unique key of your widget in first argument.
-	// Initialize pointer to parent widget
-	LAbstractWidget(const sf::String& key, LAbstractWidget* parent);
+	// Initialize pointer to parent widget. Copies pointer to sf::RenderWindow from parent
+	LAbstractWidget(LAbstractWidget* parent);
 
-	// Destructor which releases all occupied memory by child widgets
+	// Destructor which releases all occupied memory
 	~LAbstractWidget();
 
 
@@ -50,27 +45,24 @@ public:
 	///////////////////////////////////////////////
 
 
-	// Adds child widget to m_childs map with unique key
-	void addChild(const sf::String& key, LAbstractWidget* child);
+	// Adds child widget to m_childs vector
+	void addChild(LAbstractWidget* child);
 
 	// Returns true if widget contains point. Else returns false
 	virtual bool contains(const sf::Vector2f& point) const = 0;
 
-	// Returns const reference to childs map
-	typedef const std::map<sf::String, LAbstractWidget*>& CHILDS_CREF;
+	// Returns const reference to childs vector
+	typedef const std::vector<LAbstractWidget*>& CHILDS_CREF;
 	CHILDS_CREF getChilds() const;
-
-	// Returns unique key of this widget
-	const sf::String& getKey() const;
 
 	// Returns size of parent main window
 	sf::Vector2u getSize() const;
 
-	// Returns const pointer to main window
+	// Returns const reference to parent window
 	const sf::RenderWindow& getWindow() const;
 
-	// Removes child from map and release memory
-	void removeChild(const sf::String& key);
+	// Removes child from vector and release memory
+	void removeChild(int key);
 		 
 	// Sets focus by "state" value
 	void setFocus(bool state);

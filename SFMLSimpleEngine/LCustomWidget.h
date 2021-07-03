@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFMLSimpleEngine/LAbstractWidget.h>
-
+ 
 // Custom widget that can be of any shape. The shape can be set by Vertex Array
 class LCustomWidget : public LAbstractWidget
 {
@@ -15,8 +15,21 @@ private:
 
 public:
 
-	// Default constructor. Create empty Vertex Array and initialize the pointer
-	LCustomWidget();
+	// Constructor that you can use if your widget is child. 
+	// Initialize pointer to parent widget. Copies pointer to sf::RenderWindow from parent
+	LCustomWidget(LAbstractWidget* parent);
+
+	// Constructor that you can use if your widget has no parent widget.
+	// Initialize pointer to parent widget by nullptr, adds widget to widgets vector in LGameRender
+	LCustomWidget(LGameRender* render = nullptr);
+
+	// Constructor that you can use if your widget is child.
+	// Initialize Vertex Array by pointer to Array which already exists
+	LCustomWidget(sf::VertexArray* vertices, LAbstractWidget* parent);
+
+	// Constructor that you can use if your widget has no parent widget.
+	// Initialize Vertex Array by pointer to Array which already exists
+	LCustomWidget(sf::VertexArray* vertices, LGameRender* render = nullptr);
 
 	// Destructor which release all occipied memory
 	~LCustomWidget();
@@ -38,6 +51,7 @@ public:
 	bool contains(const sf::Vector2f& point) const override;
 
 	// Draws Vertex Array in target window with states of rendering
+	// Calls OnPaint() event.
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
 	// Moves widget relative to current position.

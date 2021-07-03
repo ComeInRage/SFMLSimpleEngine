@@ -2,7 +2,7 @@
 #include <SFMLSimpleEngine/LAbstractWidget.h>
 
 LGameRender::LGameRender(const sf::VideoMode& vmode, const sf::String& title) 
-	: sf::RenderWindow(vmode, title), m_widgets(new std::map<sf::String, LAbstractWidget*>) {
+	: sf::RenderWindow(vmode, title), m_widgets(new std::vector<LAbstractWidget*>) {
 
 	this->setVerticalSyncEnabled(true);
 
@@ -10,8 +10,8 @@ LGameRender::LGameRender(const sf::VideoMode& vmode, const sf::String& title)
 
 LGameRender::~LGameRender() {
 
-	for (auto pair : *m_widgets) {
-		delete pair.second;
+	for (auto widget : *m_widgets) {
+		delete widget;
 	}
 
 	delete m_widgets;
@@ -37,8 +37,8 @@ void LGameRender::event_loop() {
 
 		// Calling event handlers of all child widgets
 
-		for (auto pair : *m_widgets) {
-			pair.second->eventHandler(e);
+		for (auto widget : *m_widgets) {
+			widget->eventHandler(e);
 		}
 
 	}
@@ -47,8 +47,8 @@ void LGameRender::event_loop() {
 
 void LGameRender::drawWidgets() {
 
-	for (auto pair : *m_widgets) {
-		this->draw(*(pair.second));
+	for (auto widget : *m_widgets) {
+		this->draw(*(widget));
 	}
 
 }
@@ -57,27 +57,10 @@ void LGameRender::drawWidgets() {
 //               METHODS
 ///////////////////////////////////////////////
 
-void LGameRender::add(const sf::String& key, LAbstractWidget* widget) {
-
-	if (m_widgets->find(key) != m_widgets->end()) {
-		std::cout << "[RENDER]: Element with key '" << static_cast<std::string>(key) << "' is already exists.\n";
-		return;
-	}
+void LGameRender::add(LAbstractWidget* widget) {
 
 	widget->setWindow(this);
-	(*m_widgets)[key] = widget;
-
-}
-
-void LGameRender::remove(const sf::String& key) {
-
-	if (m_widgets->find(key) == m_widgets->end()) {
-		std::cout << "Element with key '" << static_cast<std::string>(key) << "' is not exists.\n";
-		return;
-	}
-
-	delete (*m_widgets)[key];
-	m_widgets->erase(key);
+	m_widgets->push_back(widget);
 
 }
 
