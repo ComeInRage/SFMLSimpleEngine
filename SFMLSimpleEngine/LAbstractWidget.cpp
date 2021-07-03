@@ -121,6 +121,10 @@ bool LAbstractWidget::eventHandler(sf::Event& e) {
 // We can use abstract class but it is not correct because child classes of abstract class
 // have to define any event function
 
-void LAbstractWidget::onReleaseMouse(sf::Event& e) {}
+void LAbstractWidget::onReleaseMouse(sf::Event& e) {
+
+	this->setFocus(true);
+
+}
 
 void LAbstractWidget::onPaint(sf::RenderTarget& target, sf::RenderStates states) {}

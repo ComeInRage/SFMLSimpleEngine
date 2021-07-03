@@ -47,6 +47,9 @@ public:
 	// Draws object shape in target window with states of rendering
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+	// Returns size of widget
+	sf::Vector2f getSize() const;
+
 	// Moves widget relative to current position.
 	// NOTICE: LWidget::move() don't set new position! Use LWidget::setPosition() to do that.
 	void move(float X, float Y);

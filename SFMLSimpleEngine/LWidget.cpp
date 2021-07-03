@@ -42,6 +42,12 @@ void LWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 }
 
+sf::Vector2f LWidget::getSize() const {
+
+	return m_shape.getSize();
+
+}
+
 void LWidget::move(float X, float Y) {
 
 	if (X == 0 && Y == 0)
