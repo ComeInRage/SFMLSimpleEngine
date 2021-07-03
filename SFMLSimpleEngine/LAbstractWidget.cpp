@@ -51,6 +51,12 @@ LAbstractWidget::CHILDS_CREF LAbstractWidget::getChilds() const {
 
 }
 
+const LAbstractWidget& LAbstractWidget::getParent() const {
+
+	return *m_parent;
+
+}
+
 const sf::RenderWindow& LAbstractWidget::getWindow() const {
 
 	assert(m_window != 0 && "LAbstractWidget has no pointer to window!");

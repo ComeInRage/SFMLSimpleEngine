@@ -55,6 +55,9 @@ public:
 	typedef const std::vector<LAbstractWidget*>& CHILDS_CREF;
 	CHILDS_CREF getChilds() const;
 
+	// Return const reference to parent widget
+	const LAbstractWidget& getParent() const;
+
 	// Returns const reference to parent window
 	const sf::RenderWindow& getWindow() const;
 
