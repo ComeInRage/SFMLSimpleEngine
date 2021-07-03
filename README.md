@@ -4,7 +4,7 @@
 
 SFMLSimpleEngine is simplest GUI engine that allows you to create your own GUI engines easier. SFMLSimpleEngine contains few classes on the base of which you can create you GUI elements.
 
-Notice: This project is still in development.
+**Notice**: This project is still in development.
 
 ## Installation
 
