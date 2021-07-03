@@ -15,3 +15,7 @@ You have to download [SFML 2.x](https://www.sfml-dev.org/) library. SFML 2.5.x v
 ### II. Download and build source files
 
 Download .cpp and .h files from [/src](https://github.com/ComeInRage/SFMLSimpleEngine/tree/main/src) directory. After that build files into library and connect one to your Project. You can use Visual Studio to build static library.
+
+## Using SFMLSimpleEngine
+
+Chapter will be created soon...
