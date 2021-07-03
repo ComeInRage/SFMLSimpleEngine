@@ -13,8 +13,11 @@ protected:
 
 public:
 
-	// Default constructor. Creates empty shape
-	LWidget();
+	// Default constructor. Creates empty shape. Initialize pointer to parent LAbstractWidget object
+	LWidget(LAbstractWidget* parent);
+
+	// Default constructor. Creates empty shape. Initialize pointer to parent LGameRender object
+	LWidget(LGameRender* render = nullptr);
 
 	// Creates new shape with W, H size.
 	// Initialize parent pointer. Use if parent of your widget is LAbstractWidget
@@ -31,9 +34,6 @@ public:
 	// Initialize shape by const reference to another shape which already exists.
 	// Initialize parent pointer. Use if parent of your widget is LGameRender
 	LWidget(const sf::RectangleShape& shape, LGameRender* render = nullptr);
-
-	// Destructor which release all occipied memory
-	~LWidget();
 
 
 	////////////////////////////////////////////////
@@ -62,15 +62,8 @@ public:
 	// Returns false if new position is equal to current one. Else returns true
 	bool setPosition(float X, float Y);
 
-
-	////////////////////////////////////////////////
-	//               EVENTS
-	///////////////////////////////////////////////
-
-
-	// Calls after widget and it's childs painted
-	// NOTICE: It is CONST method cause SFML library created sf::Drawable::draw() as const method!
-	virtual void onPaint(sf::RenderTarget& target, sf::RenderStates states) const;
+	// Sets wiaght and height of rectangle shape of widget
+	void setSize(float X, float Y);
 
 };
 

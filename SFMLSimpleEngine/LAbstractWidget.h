@@ -55,9 +55,6 @@ public:
 	typedef const std::vector<LAbstractWidget*>& CHILDS_CREF;
 	CHILDS_CREF getChilds() const;
 
-	// Returns size of parent main window
-	sf::Vector2u getSize() const;
-
 	// Returns const reference to parent window
 	const sf::RenderWindow& getWindow() const;
 
@@ -88,5 +85,8 @@ public:
 
 	// Called when any mouse button released
 	virtual void onReleaseMouse(sf::Event& e);
+
+	// Calls by LGameRender BEFORE widget and it's childs painted
+	virtual void onPaint(sf::RenderTarget& target, sf::RenderStates states);
 
 };

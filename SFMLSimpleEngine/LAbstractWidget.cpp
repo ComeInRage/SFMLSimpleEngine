@@ -51,13 +51,6 @@ LAbstractWidget::CHILDS_CREF LAbstractWidget::getChilds() const {
 
 }
 
-sf::Vector2u LAbstractWidget::getSize() const {
-
-	assert(m_window != 0 && "LAbstractWidget has no pointer to window!");
-	return m_window->getSize();
-
-}
-
 const sf::RenderWindow& LAbstractWidget::getWindow() const {
 
 	assert(m_window != 0 && "LAbstractWidget has no pointer to window!");
@@ -129,3 +122,5 @@ bool LAbstractWidget::eventHandler(sf::Event& e) {
 // have to define any event function
 
 void LAbstractWidget::onReleaseMouse(sf::Event& e) {}
+
+void LAbstractWidget::onPaint(sf::RenderTarget& target, sf::RenderStates states) {}

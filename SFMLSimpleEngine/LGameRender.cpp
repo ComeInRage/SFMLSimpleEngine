@@ -48,7 +48,8 @@ void LGameRender::event_loop() {
 void LGameRender::drawWidgets() {
 
 	for (auto widget : *m_widgets) {
-		this->draw(*(widget));
+		widget->onPaint(*this, sf::RenderStates::Default);
+		this->draw(*widget);
 	}
 
 }

@@ -1,7 +1,10 @@
 #include <SFMLSimpleEngine/LWidget.h>
 
-LWidget::LWidget()
-	: m_shape(sf::RectangleShape()) {}
+LWidget::LWidget(LAbstractWidget* parent)
+	: LAbstractWidget(parent), m_shape(sf::RectangleShape()) {}
+
+LWidget::LWidget(LGameRender* render)
+	: LAbstractWidget(render), m_shape(sf::RectangleShape()) {}
 
 LWidget::LWidget(float W, float H, LAbstractWidget* parent)
 	: LAbstractWidget(parent), m_shape(sf::Vector2f(W, H)) {}
@@ -14,10 +17,6 @@ LWidget::LWidget(const sf::RectangleShape& shape, LAbstractWidget* parent)
 
 LWidget::LWidget(const sf::RectangleShape& shape, LGameRender* render)
 	: LAbstractWidget(render), m_shape(shape) {}
-
-LWidget::~LWidget() {
-	//delete m_shape;
-}
 
 
 ////////////////////////////////////////////////
@@ -40,8 +39,6 @@ void LWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	for (auto child : childs) {
 		target.draw(*child);
 	}
-
-	this->onPaint(target, states);
 
 }
 
@@ -80,14 +77,8 @@ bool LWidget::setPosition(float X, float Y) {
 
 }
 
+void LWidget::setSize(float X, float Y) {
 
-////////////////////////////////////////////////
-//               EVENTS
-///////////////////////////////////////////////
+	m_shape.setSize(sf::Vector2f(X, Y));
 
-
-// Some events do nothing cause child classes should make logic by their own
-// We can use abstract class but it is not correct because child classes of abstract class
-// have to define any event function
-
-void LWidget::onPaint(sf::RenderTarget& target, sf::RenderStates states) const {}
+}

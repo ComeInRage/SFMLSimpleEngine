@@ -50,8 +50,6 @@ void LCustomWidget::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 		target.draw(*child);
 	}
 
-	this->onPaint(target, states);
-
 }
 
 void LCustomWidget::move(float X, float Y) {
@@ -88,13 +86,3 @@ void LCustomWidget::setPrimitive(const sf::PrimitiveType& ptype) {
 	m_vertices->setPrimitiveType(ptype);
 
 }
-
-
-////////////////////////////////////////////////
-//               EVENTS
-///////////////////////////////////////////////
-
-
-// Some events do nothing cause child classes should ba able make logic by their own
-
-void LCustomWidget::onPaint(sf::RenderTarget& target, sf::RenderStates states) const {}

@@ -65,14 +65,4 @@ public:
 	// Sets primitive type to Vertex Array
 	void setPrimitive(const sf::PrimitiveType& ptype);
 
-
-	////////////////////////////////////////////////
-	//               EVENTS
-	///////////////////////////////////////////////
-
-
-	// Calls after widget and it's childs painted
-	// NOTICE: It is CONST method cause SFML library created sf::Drawable::draw() as const method!
-	virtual void onPaint(sf::RenderTarget& target, sf::RenderStates states) const;
-
 };
