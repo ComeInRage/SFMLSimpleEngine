@@ -47,6 +47,9 @@ public:
 	// Draws object shape in target window with states of rendering
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+	// Returns position of widget
+	sf::Vector2f getPosition() const;
+
 	// Returns size of widget
 	sf::Vector2f getSize() const;
 

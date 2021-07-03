@@ -42,6 +42,12 @@ void LWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 }
 
+sf::Vector2f LWidget::getPosition() const {
+
+	return sf::Vector2f(m_shape.getPosition());
+
+}
+
 sf::Vector2f LWidget::getSize() const {
 
 	return m_shape.getSize();
