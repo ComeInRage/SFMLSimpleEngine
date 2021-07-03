@@ -6,7 +6,7 @@
 class LWidget : public LAbstractWidget
 {
 
-protected:
+private:
 
 	// Shape which describes the object. Will be drawn in target window
 	sf::RectangleShape m_shape;
