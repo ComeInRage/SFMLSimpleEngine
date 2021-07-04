@@ -105,7 +105,9 @@ bool LAbstractWidget::eventHandler(sf::Event& e) {
 
 		sf::Vector2i mouse_pos = sf::Mouse::getPosition(*m_window);
 		bool clicked = this->contains(sf::Vector2f(mouse_pos));
+
 		this->setFocus(clicked);
+		
 		if (clicked) {
 			this->onReleaseMouse(e);
 			success = true;

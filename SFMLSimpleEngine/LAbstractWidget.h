@@ -86,6 +86,8 @@ public:
 	*/
 	virtual bool eventHandler(sf::Event& e);
 
+protected:
+
 	// Called when any mouse button released
 	virtual void onReleaseMouse(sf::Event& e);
 
