@@ -61,6 +61,9 @@ public:
 	// Returns const reference to parent window
 	const sf::RenderWindow& getWindow() const;
 
+	// Returns true if widget is in focus. Else returns false
+	bool isInFocus() const;
+
 	// Removes child from vector and release memory
 	void removeChild(int key);
 		 

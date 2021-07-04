@@ -64,6 +64,12 @@ const sf::RenderWindow& LAbstractWidget::getWindow() const {
 
 }
 
+bool LAbstractWidget::isInFocus() const {
+
+	return m_focus;
+
+}
+
 void LAbstractWidget::removeChild(int key) {
 
 	delete m_childs->at(key);
