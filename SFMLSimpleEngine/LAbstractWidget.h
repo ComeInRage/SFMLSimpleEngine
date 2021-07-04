@@ -89,10 +89,12 @@ public:
 	*/
 	virtual void eventHandler(sf::Event& e);
 
+	// Calls by LGameRender BEFORE widget and it's childs painted
+	virtual void onPaint(sf::RenderTarget& target, sf::RenderStates states);
+
 	// Called when any mouse button released
 	virtual void onReleaseMouse(sf::Event& e);
 
-	// Calls by LGameRender BEFORE widget and it's childs painted
-	virtual void onPaint(sf::RenderTarget& target, sf::RenderStates states);
+	virtual void onTextEnter(sf::Event& e);
 
 };

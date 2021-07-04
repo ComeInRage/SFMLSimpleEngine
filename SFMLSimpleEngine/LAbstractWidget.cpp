@@ -105,16 +105,35 @@ void LAbstractWidget::setWindow(sf::RenderWindow* window) {
 
 void LAbstractWidget::eventHandler(sf::Event& e) {
 
-	if (e.type == sf::Event::MouseButtonReleased) {
+	switch (e.type)
+	{
+
+	case sf::Event::MouseButtonReleased: {
 
 		sf::Vector2i mouse_pos = sf::Mouse::getPosition(*m_window);
 		bool clicked = this->contains(sf::Vector2f(mouse_pos));
 
 		this->setFocus(clicked);
-		
+
 		if (clicked) {
 			this->onReleaseMouse(e);
 		}
+
+		break;
+
+	}
+
+	case sf::Event::TextEntered: {
+
+		this->onTextEnter(e);
+
+		break;
+
+	}
+
+	default:
+
+		break;
 
 	}
 
@@ -128,6 +147,8 @@ void LAbstractWidget::eventHandler(sf::Event& e) {
 // We can use abstract class but it is not correct because child classes of abstract class
 // have to define any event function
 
+void LAbstractWidget::onPaint(sf::RenderTarget& target, sf::RenderStates states) {}
+
 void LAbstractWidget::onReleaseMouse(sf::Event& e) {}
 
-void LAbstractWidget::onPaint(sf::RenderTarget& target, sf::RenderStates states) {}
+void LAbstractWidget::onTextEnter(sf::Event& e) {}
