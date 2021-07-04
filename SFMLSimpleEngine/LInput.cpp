@@ -16,6 +16,6 @@ void LInput::onPaint(sf::RenderTarget& target, sf::RenderStates states) {}
 
 void LInput::onReleaseMouse(sf::Event& e) {
 
-
+	this->setFocus(true);
 
 }
