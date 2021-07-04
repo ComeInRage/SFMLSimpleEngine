@@ -61,6 +61,9 @@ public:
 	// Set thickness to 0 if you want remove all borders
 	void setBorders(float thickness = 1, const sf::Color& color = sf::Color::White);
 
+	// Sets color of borders
+	void setBordersColor(const sf::Color& color);
+
 	// Sets the color of which the widget will filled
 	void setColor(const sf::Color& color);
 

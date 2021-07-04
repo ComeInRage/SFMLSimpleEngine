@@ -37,6 +37,7 @@ void LWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	const auto childs = this->getChilds();
 
 	for (auto child : childs) {
+		child->onPaint(target, states);
 		target.draw(*child);
 	}
 
@@ -66,6 +67,12 @@ void LWidget::move(float X, float Y) {
 void LWidget::setBorders(float thickness, const sf::Color& color) {
 
 	m_shape.setOutlineThickness(thickness);
+	m_shape.setOutlineColor(color);
+
+}
+
+void LWidget::setBordersColor(const sf::Color& color) {
+
 	m_shape.setOutlineColor(color);
 
 }
