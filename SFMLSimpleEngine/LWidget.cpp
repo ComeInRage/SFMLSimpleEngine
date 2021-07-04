@@ -34,18 +34,27 @@ void LWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 	target.draw(m_shape);
 
-	const auto childs = this->getChilds();
+}
 
-	for (auto child : childs) {
-		child->onPaint(target, states);
-		target.draw(*child);
-	}
+float LWidget::getBorderWidth() const {
+
+	return m_shape.getOutlineThickness();
+
+}
+
+float LWidget::getPadding() const {
+
+	return m_padding;
 
 }
 
 sf::Vector2f LWidget::getPosition() const {
 
-	return sf::Vector2f(m_shape.getPosition());
+	//sf::Vector2f pos = m_shape.getPosition();
+	//pos.x += m_padding;
+	//pos.y += m_padding;
+
+	return m_shape.getPosition();//pos;
 
 }
 
@@ -64,16 +73,22 @@ void LWidget::move(float X, float Y) {
 
 }
 
-void LWidget::setBorders(float thickness, const sf::Color& color) {
+void LWidget::setBorder(float thickness, const sf::Color& color) {
 
 	m_shape.setOutlineThickness(thickness);
 	m_shape.setOutlineColor(color);
 
 }
 
-void LWidget::setBordersColor(const sf::Color& color) {
+void LWidget::setBorderColor(const sf::Color& color) {
 
 	m_shape.setOutlineColor(color);
+
+}
+
+void LWidget::setBorderWidth(float width) {
+
+	m_shape.setOutlineThickness(width);
 
 }
 
@@ -83,14 +98,20 @@ void LWidget::setColor(const sf::Color& color) {
 
 }
 
+void LWidget::setPadding(float padding) {
+
+	m_padding = padding;
+
+}
+
 bool LWidget::setPosition(float X, float Y) {
 
-	const auto pos = m_shape.getPosition();
+	const auto pos = this->getPosition();
 
 	if (pos.x == X && pos.y == Y)
 		return false;
 
-	m_shape.setPosition(X, Y);
+	m_shape.setPosition(X + m_padding, Y + m_padding);
 
 	return true;
 
@@ -99,5 +120,18 @@ bool LWidget::setPosition(float X, float Y) {
 void LWidget::setSize(float X, float Y) {
 
 	m_shape.setSize(sf::Vector2f(X, Y));
+
+}
+
+void LWidget::update(sf::RenderTarget& target, sf::RenderStates states) {
+
+	this->onPaint(target, states);
+	this->draw(target, states);
+
+	const auto childs = this->getChilds();
+
+	for (auto child : childs) {
+		child->update(target, states);
+	}
 
 }
