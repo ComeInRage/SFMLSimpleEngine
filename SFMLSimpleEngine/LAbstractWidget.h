@@ -76,6 +76,8 @@ public:
 	// Sets static pointer to main window
 	void setWindow(sf::RenderWindow* window);
 
+	virtual void update(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) = 0;
+
 
 	////////////////////////////////////////////////
 	//               EVENTS
