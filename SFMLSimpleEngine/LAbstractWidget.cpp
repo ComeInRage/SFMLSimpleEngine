@@ -97,9 +97,7 @@ void LAbstractWidget::setWindow(sf::RenderWindow* window) {
 ///////////////////////////////////////////////
 
 
-bool LAbstractWidget::eventHandler(sf::Event& e) {
-
-	bool success = false;
+void LAbstractWidget::eventHandler(sf::Event& e) {
 
 	if (e.type == sf::Event::MouseButtonReleased) {
 
@@ -110,18 +108,13 @@ bool LAbstractWidget::eventHandler(sf::Event& e) {
 		
 		if (clicked) {
 			this->onReleaseMouse(e);
-			success = true;
 		}
 
 	}
 
 	for (auto child : *m_childs) {
-		bool child_success = child->eventHandler(e);
-		if (!success && child_success)
-			success = child_success;
+		child->eventHandler(e);
 	}
-
-	return success;
 
 }
 

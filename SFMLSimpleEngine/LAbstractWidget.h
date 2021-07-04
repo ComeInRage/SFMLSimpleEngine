@@ -84,7 +84,7 @@ public:
 		If you want to process any events
 		Returns true if event was processes successfully, else returns false
 	*/
-	virtual bool eventHandler(sf::Event& e);
+	virtual void eventHandler(sf::Event& e);
 
 protected:
 
