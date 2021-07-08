@@ -11,6 +11,9 @@ private:
 	// when user clicks on Input.
 	float m_border;
 
+	// Font of showing text
+	sf::Font m_font;
+
 public:
 
 	LAbstractInput(LAbstractWidget* parent);
